@@ -1,6 +1,5 @@
 import prisma from "@/utils/prisma";
 import { NextResponse } from "next/server";
-
 import bcrypt from "bcrypt";
 import { sign } from "jsonwebtoken";
 
@@ -14,14 +13,6 @@ export async function POST(req) {
       },
     });
 
-    // Jika user belum verifikasi, kirim pesan error
-    if (findUser.verified === false) {
-      return NextResponse.json(
-        { errorMessage: "Please verify your account first" },
-        { status: 401 }
-      );
-    }
-
     // Jika user tidak ditemukan, kirim pesan error
     if (!findUser) {
       return NextResponse.json(
@@ -31,6 +22,8 @@ export async function POST(req) {
     }
 
     // Bandingkan password yang diinput dengan password di database
+    console.log('Input String: ',password);
+    console.log('storedHashing: ',findUser.password);
     const comparePassword = await bcrypt.compare(password, findUser.password);
 
     // Jika password tidak cocok, kirim pesan error
@@ -41,24 +34,48 @@ export async function POST(req) {
       );
     }
 
-    // Jika password cocok, kirim data user
+    // // Jika user belum verifikasi, kirim pesan error
+    // if (!findUser.verified) {
+    //   return NextResponse.json(
+    //     { errorMessage: "Please verify your account first" },
+    //     { status: 401 }
+    //   );
+    // }
+
+    // Jika password cocok dan user ditemukan, kirim data user dengan token
     const payload = {
       id: findUser.id,
-      firstName: findUser.firstName,
-      lastName: findUser.lastName,
       username: findUser.username,
       email: findUser.email,
     };
-
+    console.log('payload: ', payload);
     // Buat token
-    const token = sign(payload, process.env.JWT_SECRET, { expiresIn: "7d" });
-    const res = NextResponse.json(
-      { data: payload, message: "Login succesfully" },
-      { status: 200 }
-    );
-    res.cookies.set("token", token);
+    const token = sign(payload, process.env.JWT_SECRET, { expiresIn: '7d' });
+const secretKey = process.env.JWT_SECRET;
+console.log('Key usage:', secretKey);
+console.log('Created Token:', token);
 
-    return res;
+// Include the token in the response data
+const responseData = {
+  ...payload,
+  accessToken: token, // Add the access token to the response data
+};
+
+const res = NextResponse.json(
+  { data: responseData, message: 'Login successfully' },
+  { status: 200 }
+);
+
+// Set the token as a cookie in the response
+res.cookies.set('accessToken', token, {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === 'production',
+  sameSite: 'strict',
+  path: '/',
+  maxAge: 60 * 60 * 24 * 7, // 7 days, adjust as needed
+});
+
+return res;
   } catch (error) {
     console.log(error);
     return NextResponse.json(
