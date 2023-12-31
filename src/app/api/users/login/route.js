@@ -2,6 +2,7 @@ import prisma from "@/utils/prisma";
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import { sign } from "jsonwebtoken";
+import middleware from "@/middleware";
 
 export async function POST(req) {
   const { email, password } = await req.json();
@@ -51,9 +52,9 @@ export async function POST(req) {
     console.log('payload: ', payload);
     // Buat token
     const token = sign(payload, process.env.JWT_SECRET, { expiresIn: '7d' });
-const secretKey = process.env.JWT_SECRET;
-console.log('Key usage:', secretKey);
-console.log('Created Token:', token);
+    const secretKey = process.env.JWT_SECRET;
+    console.log('Key usage:', secretKey);
+    console.log('Created Token:', token);
 
 // Include the token in the response data
 const responseData = {
