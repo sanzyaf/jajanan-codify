@@ -8,9 +8,10 @@ import Cookies from 'js-cookie';
 import { useEffect } from 'react';
 import middleware from '@/middleware';
 // This function should be called after a successful login
-const storeTokenInLocalStorage = (token, username) => {
+const storeTokenInLocalStorage = (token, id, username) => {
   localStorage.setItem('accessToken', token);
   localStorage.setItem('username', username);
+  localStorage.setItem('id', id);
 };
 const LoginPage = () => {
   const router = useRouter();
@@ -33,8 +34,8 @@ const LoginPage = () => {
       //console.log('Access Token from login:', data.accessToken);
 
       // Set the token as a cookie
-      if (data.accessToken, data.username) {
-        storeTokenInLocalStorage(data.accessToken, data.username);
+      if (data.accessToken, data.id, data.username) {
+        storeTokenInLocalStorage(data.accessToken, data.id, data.username);
         Cookies.set('accessToken', accessToken, {
           expires: 7, // Set the appropriate cookie expiry (in days)
           path: '/', // Set the cookie path
@@ -51,6 +52,8 @@ useEffect(() => {
   // Retrieve the token from localStorage
   const token = localStorage.getItem('accessToken');
   console.log('Retrieved token from local storage:', token);
+  const id = localStorage.getItem('id');
+  console.log('Retrieved userId from local storage:', id);
   const username = localStorage.getItem('username');
   console.log('Retrieved username from local storage:', username);
   // Use the token for further operations (e.g., API requests)
