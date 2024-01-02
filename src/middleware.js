@@ -7,7 +7,7 @@ export default async function middleware(req) {
   console.log('middleware token: ', token);
 
   if (!token) {
-    return NextResponse.redirect(new URL('/login', 'http://localhost:3000/')); // Adjust the domain accordingly
+    return NextResponse.redirect(new URL('/login', req.url)); // Adjust the domain accordingly
   }
 
   try {
@@ -20,7 +20,7 @@ export default async function middleware(req) {
     return NextResponse.next();
   } catch (error) {
     console.error('Token verification failed:', error);
-    return NextResponse.redirect(new URL('/login', 'http://localhost:3000/')); // Adjust the domain accordingly
+    return NextResponse.redirect(new URL('/login', req.url)); // Adjust the domain accordingly
   }
 }
 

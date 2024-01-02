@@ -80,17 +80,12 @@ export const fetchDashboardData = async (token) => {
   }
 };
 
-// Get user profile (protected route)
-export const getUserProfile = async (token) => {
+export const getUserProfile = async (userId) => {
   try {
-    if (!token) {
-      throw new Error('Token not found');
-    }
-
-    const response = await fetch('/api/users/profile', {
+    const response = await fetch(`/api/users/profile`, {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
       },
     });
 
@@ -105,5 +100,24 @@ export const getUserProfile = async (token) => {
   }
 };
 
-  
+export const updateUserProfile = async (userId, updatedData) => {
+  try {
+    const response = await fetch(`/api/users/profile`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedData),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to update user profile');
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
   
