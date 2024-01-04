@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
+import React from "react";
 
 import prisma from "@/utils/prisma";
+import { Register } from "@/components/auth/components/Register";
 
 export async function POST(req) {
   const { firstName, lastName, username, email, password } = await req.json();
@@ -32,3 +34,4 @@ export async function POST(req) {
     );
   }
 }
+
