@@ -17,11 +17,11 @@ export const DashboardTemplate = ({ children }) => {
           </Link>
           <Link className="menu" href="/dashboard/products">
             <Box size={15} />
-            Products
+            Service
           </Link>
-          <Link className="menu" href="/dashboard/orders">
+          <Link className="menu" href="/dashboard/offers">
             <Receipt size={15} />
-            Orders
+            Price Offer
           </Link>
         </div>
         <div className="menu">
