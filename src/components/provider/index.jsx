@@ -1,13 +1,16 @@
 "use client";
 
 import { NextUIProvider } from "@nextui-org/react";
+import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { Toaster } from "react-hot-toast";
 
 export const Provider = ({ children }) => {
   return (
     <NextUIProvider>
-      <main className="light text-foreground bg-background">{children}</main>
-      <Toaster />
+      <NextThemesProvider attribute="class" defaultTheme="light">
+        {children}
+      </NextThemesProvider>
     </NextUIProvider>
   );
 };
+   
