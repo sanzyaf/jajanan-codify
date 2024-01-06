@@ -1,6 +1,8 @@
 import { AllServices } from "@/components/services/allServices";
 import { Header } from "@/components/sharedUI/header";
 import { apiUrl } from "@/config/apiUrl";
+import Link from 'next/link';
+import Image from 'next/image';
 
 async function getData(query) {
   if (!query) {

@@ -54,6 +54,15 @@ model Offer {
   serviceID     Int
 }
 
+model AcceptedOffer {
+  id        String   @id @default(uuid())
+  offerId   String
+  userId    String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  offer     Offer    @relation(fields: [offerId], references: [id])
+}
+
 model Testimonial {
   id          Int       @id @default(autoincrement())
   rating      Int

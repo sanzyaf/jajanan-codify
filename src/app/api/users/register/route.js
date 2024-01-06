@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 
 import prisma from "@/utils/prisma";
+import { Register } from "@/components/auth/components/Register";
 
 export async function POST(req) {
   const { username, email, password, location, about, avatar, qrisBarcode } = await req.json();
@@ -28,3 +29,4 @@ export async function POST(req) {
     return NextResponse.json({ errorMessage: "Something went wrong. Please try again later" }, { status: 500 });
   }
 }
+
