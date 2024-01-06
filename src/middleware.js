@@ -4,7 +4,6 @@ import { NextResponse } from 'next/server';
 // Middleware function
 export default async function middleware(req) {
   const token = req.cookies.get('accessToken')?.value;
-  console.log('middleware token: ', token);
 
   if (!token) {
     return NextResponse.redirect(new URL('/login', req.url)); // Adjust the domain accordingly
