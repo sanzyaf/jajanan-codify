@@ -1,9 +1,26 @@
 import { NextResponse } from "next/server";
 import prisma from "@/utils/prisma";
 import { uploadFile } from "@/lib/uploadFile";
+import slugify from "slugify";
 
-export async function GET() {
+export async function GET(req) {
+  const searchParams = req.nextUrl.searchParams;
+  const query = searchParams.get("query");
+
   try {
+    if (query) {
+      const searchService = await prisma.service.findMany({
+        where: {
+          title: {
+            contains: query,
+            mode: "insensitive",
+          },
+        },
+      });
+
+      return NextResponse.json({ data: searchService, message: "success" });
+    }
+
     const allService = await prisma.service.findMany();
     return NextResponse.json({ data: allService, message: "success" });
   } catch (error) {
@@ -13,45 +30,36 @@ export async function GET() {
 }
 
 export async function POST(req) {
-  const body = await req.formData();
-  const name = body.get("name");
-  const description = body.get("description");
-  const image = body.getAll("image");
-  const price = body.get("price");
-  const status = body.get("status");
+  const formData = await req.formData();
 
-  //upload image to s3
-  // try {
-  //   const uploadImage = await uploadFile({
-  //     Body: image[0],
-  //     Key: image[0].name,
-  //     ContentType: image[0].type,
-  //     Dir: "services",
-  //   });
-  // } catch (error) {
-  //   console.log(error);
-  // }
+  const title = formData.get("title");
+  const description = formData.get("description");
+  const location = formData.get("location");
+  const price = formData.get("price");
+  const isActive = formData.get("isActive");
+  const authorId = formData.get("authorId");
 
-  //save to database
   try {
-    const createAllService = await prisma.service.create({
+    const createService = await prisma.service.create({
       data: {
-        name,
+        title,
+        slug: slugify(title, { lower: true }),
         description,
-        image: image[0].name,
-        price,
-        status,
+        location,
+        price: Number(price),
+        isActive: isActive === "true" ? true : false,
+        authorId,
       },
     });
 
-    serviceId = createAllService.id;
-    console.log(createAllService);
+    return NextResponse.json({
+      data: createService,
+      message: "Service Created Success",
+    });
   } catch (error) {
     console.log(error);
+    return NextResponse.json({
+      error: "Something went wrong",
+    });
   }
-
-  return NextResponse.json({
-    data: { name, description, image, price, status },
-    message: "Service Created Success",
-  });
 }

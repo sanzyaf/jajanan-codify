@@ -1,8 +1,7 @@
-import prisma from "@/utils/prisma";
 import { NextResponse } from "next/server";
-
 import bcrypt from "bcrypt";
 import { sign } from "jsonwebtoken";
+import prisma from "@/utils/prisma";
 
 export async function POST(req) {
   const { email, password } = await req.json();
@@ -13,11 +12,6 @@ export async function POST(req) {
         email,
       },
     });
-
-    // Jika user belum verifikasi, kirim pesan error
-    if (findUser.verified === false) {
-      return NextResponse.json({ errorMessage: "Please verify your account first" }, { status: 401 });
-    }
 
     // Jika user tidak ditemukan, kirim pesan error
     if (!findUser) {
@@ -41,7 +35,6 @@ export async function POST(req) {
       about: findUser.about,
       avatar: findUser.avatar,
       qrisBarcode: findUser.qrisBarcode,
-
     };
 
     // Buat token

@@ -13,7 +13,7 @@ datasource db {
 }
 
 model User {
-  id            Int           @id @default(autoincrement())
+  id            String           @id @default(uuid())
   username      String
   email         String        @unique
   password      String
@@ -22,56 +22,63 @@ model User {
   avatar        String?
   qrisBarcode   String?
 
-  services      Service[]     @relation("ServiceConsumer")
-  offers        Offer[]       @relation("OfferWorker")
-  testimonials  Testimonial[] @relation("UserTestimonials")
+  services      Service[]
+  offers        Offer[]       
+  // testimonials  Testimonial[] @relation("UserTestimonials")
+  // acceptedOffers AcceptedOffer[]
+}
+
+model Offer {
+  id            String      @id @default(uuid())
+  offerPrice    Float
+  isAccepted        Boolean @default(false)
+
+  serviceId    String
+  service      Service     @relation(fields: [serviceId], references: [id])
+
+  authorId     String
+  author       User        @relation(fields: [authorId], references: [id])
+
 }
 
 model Service {
-  id            Int          @id @default(autoincrement())
+  id            String          @id @default(uuid())
   title         String
   slug          String       @unique
   description   String
   location      String
   price         Float
-  status        String
-  consumer      User         @relation("ServiceConsumer", fields: [consumerID], references: [id])
-  consumerID    Int
+  isActive      Boolean
+  image         String?
 
-  offers        Offer[]      @relation("ServiceOffers")
-  serviceTestimonials Testimonial[] @relation("ServiceTestimonials")
+  authorId      String
+  author        User         @relation(fields: [authorId], references: [id])
+
+  offers        Offer[]      
+  // serviceTestimonials Testimonial[] @relation("ServiceTestimonials")
 }
 
-model Offer {
-  id            Int      @id @default(autoincrement())
-  offerPrice    Float
-  status        String
-  worker        User?    @relation("OfferWorker", fields: [workerID], references: [id])
-  workerID      Int?
-  paymentStatus String?
+// model AcceptedOffer {
+//   id        String   @id @default(uuid())
+//   createdAt DateTime @default(now())
 
-  service       Service  @relation("ServiceOffers", fields: [serviceID], references: [id])
-  serviceID     Int
-}
+//   userId    String
+//   user      User    @relation(fields: [userId], references: [id])
 
-model AcceptedOffer {
-  id        String   @id @default(uuid())
-  offerId   String
-  userId    String
-  createdAt DateTime @default(now())
-  user      User     @relation(fields: [userId], references: [id])
-  offer     Offer    @relation(fields: [offerId], references: [id])
-}
+//   offerId   String
+//   offer     Offer    @relation(fields: [offerId], references: [id])
+// }
 
-model Testimonial {
-  id          Int       @id @default(autoincrement())
-  rating      Int
-  description String
+// model Testimonial {
+//   id          Int       @id @default(autoincrement())
+//   rating      Int
+//   description String
 
-  user        User      @relation("UserTestimonials", fields: [userID], references: [id])
-  userID      Int
-  service     Service   @relation("ServiceTestimonials", fields: [serviceID], references: [id])
-  serviceID   Int
-}
+//   user        User      @relation(fields: [userId], references: [id])
+//   userId      String
+  
+//   service     Service   @relation("ServiceTestimonials", fields: [serviceId], references: [id])
+//   serviceId   String
+// }
 
 

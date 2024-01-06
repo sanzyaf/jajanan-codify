@@ -1,0 +1,15 @@
+POST http://localhost:3000/api/users/register
+
+{
+    "username": "indrazm",
+    "email": "me@indrazm.com",
+    "password": "123456"
+}
+
+### Login
+POST http://localhost:3000/api/users/login
+
+{
+    "email": "me@indrazm.com",
+    "password": "123456"
+}
