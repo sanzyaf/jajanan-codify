@@ -1,9 +1,37 @@
 "use client";
+
 import { Button, Input, Textarea } from "@nextui-org/react";
 import Link from "next/link";
-import React from "react";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
+import toast from "react-hot-toast";
 
-export default function CreateService() {
+export default function CreateService({ userId }) {
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+
+  async function createService(event) {
+    setLoading(true);
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+    formData.append("authorId", userId);
+
+    const res = await fetch("/api/services", {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!res.ok) {
+      setLoading(false);
+      toast.error("Failed to create service");
+    }
+
+    setLoading(false);
+    toast.success("Service created");
+    router.push("/dashboard");
+  }
+
   return (
     <main>
       <section className="flex justify-between items-end mb-7">
@@ -13,32 +41,29 @@ export default function CreateService() {
         </div>
       </section>
 
-      <section>
-        <div className="py-3">
-          <label>Service Name</label>
-          <Input placeholder="Clean shoes" name="name"/>
-        </div>
-        <div className="py-3">
-          <label>Description</label>
-          <Textarea placeholder="Description" name="description"/>
-        </div>
-        <div className="py-3">
-          <label>Price</label>
-          <Input placeholder="price" name="price"/>
-        </div>
-        <div className="py-3">
-          <label>Status</label>
-          <Input placeholder="Status" name="status"/>
-        </div>
-        <div className="mt-7">
-          <Button shadow color="primary">
-            <Link
-              href="/dashboard">
-              Save Data
-            </Link>
+      <form onSubmit={createService}>
+        <section className="space-y-5">
+          <div className="space-y-2">
+            <label>Service Name</label>
+            <Input placeholder="Clean shoes" name="title" />
+          </div>
+          <div className="space-y-2">
+            <label>Description</label>
+            <Textarea placeholder="Description" name="description" />
+          </div>
+          <div className="space-y-2">
+            <label>Location</label>
+            <Input placeholder="Jakarta" name="location" />
+          </div>
+          <div className="space-y-2">
+            <label>Price</label>
+            <Input placeholder="price" name="price" type="number" />
+          </div>
+          <Button isDisabled={loading} type="submit" shadow color="primary">
+            Create Service
           </Button>
-        </div>
-      </section>
+        </section>
+      </form>
     </main>
   );
 }

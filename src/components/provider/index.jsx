@@ -7,10 +7,10 @@ import { Toaster } from "react-hot-toast";
 export const Provider = ({ children }) => {
   return (
     <NextUIProvider>
-      <NextThemesProvider attribute="class" defaultTheme="light">
-        {children}
+      <NextThemesProvider attribute="class" defaultTheme="light" enableSystem={false}>
+        <main>{children}</main>
+        <Toaster />
       </NextThemesProvider>
     </NextUIProvider>
   );
 };
-   

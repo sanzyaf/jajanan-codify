@@ -1,13 +1,6 @@
 "use client";
 import React from "react";
-import {
-  Table,
-  TableHeader,
-  TableColumn,
-  TableBody,
-  TableRow,
-  TableCell,
-} from "@nextui-org/react";
+import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell } from "@nextui-org/react";
 import { Eye, PencilLine, Trash2 } from "lucide-react";
 import Link from "next/link";
 
@@ -76,11 +69,10 @@ const tableData = [
   },
 ];
 
-export default function TableService() {
+export default function TableService({ data }) {
   return (
     <Table aria-label="Example static collection table">
       <TableHeader>
-        <TableColumn>ID</TableColumn>
         <TableColumn>SERVICE NAME</TableColumn>
         <TableColumn>DESCRIPTION</TableColumn>
         <TableColumn>PRICE</TableColumn>
@@ -88,15 +80,12 @@ export default function TableService() {
         <TableColumn>ACTION</TableColumn>
       </TableHeader>
       <TableBody>
-        {tableData.map((data) => (
+        {data.map((data) => (
           <TableRow key={data.id}>
-            <TableCell>{data.id}</TableCell>
-            <TableCell>{data.name}</TableCell>
+            <TableCell>{data.title}</TableCell>
             <TableCell>{data.description}</TableCell>
             <TableCell>{data.price}</TableCell>
-            <TableCell color={statusColorMap[tableData.status]}>
-              {data.status}
-            </TableCell>
+            <TableCell>{data.isActive ? "Active" : "Not Active"}</TableCell>
             <TableCell>
               <div className="space-x-3">
                 <button className="text-success">

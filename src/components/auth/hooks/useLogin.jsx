@@ -1,10 +1,12 @@
 "use-client";
 
 import { API_URL } from "@/config/apiUrl";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
 export const useLogin = () => {
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [loginData, setLoginData] = useState({
@@ -20,7 +22,7 @@ export const useLogin = () => {
   async function handleSubmitLogin() {
     setLoading(true);
     const { email, password } = loginData;
-    const res = await fetch(`${API_URL}/login`, {
+    const res = await fetch(`${API_URL}/users/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -29,19 +31,10 @@ export const useLogin = () => {
     });
     const data = await res.json();
     console.log(data);
-    Cookies.set("token", data.token);
-
-    
-
-    if (!dummyToken) {
-      setLoading(false);
-      console.error("Failed to login");
-      return;
-    }
 
     setLoading(false);
     toast.success("Login succesfully, redirecting...");
-    setTimeout(() => router.push("/dashboard"), 2000);
+    router.push("/dashboard");
   }
 
   const handleTogglePassword = () => {

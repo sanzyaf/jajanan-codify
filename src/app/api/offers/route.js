@@ -4,8 +4,19 @@ import { NextResponse } from "next/server";
 export async function GET(req) {
   const searchParams = req.nextUrl.searchParams;
   const serviceId = searchParams.get("serviceId");
+  const serviceAuthorId = searchParams.get("serviceAuthorId");
 
   try {
+    if (serviceAuthorId) {
+      const findOffers = await prisma.offer.findMany({
+        where: {
+          authorId: serviceAuthorId,
+        },
+      });
+
+      return NextResponse.json({ message: "Offers found", data: findOffers });
+    }
+
     const findOffers = await prisma.offer.findMany({
       where: {
         serviceId,

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import prisma from "@/utils/prisma";
 
-export async function GET(req, params) {
+export async function GET(req, { params }) {
   const { slug } = params;
 
   try {

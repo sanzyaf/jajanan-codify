@@ -36,7 +36,6 @@ export async function POST(req) {
   const description = formData.get("description");
   const location = formData.get("location");
   const price = formData.get("price");
-  const isActive = formData.get("isActive");
   const authorId = formData.get("authorId");
 
   try {
@@ -47,7 +46,7 @@ export async function POST(req) {
         description,
         location,
         price: Number(price),
-        isActive: isActive === "true" ? true : false,
+        isActive: true,
         authorId,
       },
     });
