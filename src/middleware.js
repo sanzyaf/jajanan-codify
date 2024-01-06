@@ -1,29 +1,24 @@
-import { jwtVerify } from 'jose';
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server";
+import * as jose from "jose";
 
-// Middleware function
 export default async function middleware(req) {
-  const token = req.cookies.get('accessToken')?.value;
-  console.log('middleware token: ', token);
+  const jwtSecret = process.env.JWT_SECRET;
+  const encodedJwtSecret = new TextEncoder().encode(jwtSecret);
+  const token = req.cookies.get("token")?.value;
 
   if (!token) {
-    return NextResponse.redirect(new URL('/login', req.url)); // Adjust the domain accordingly
+    return NextResponse.redirect(new URL("/login", req.url));
   }
 
   try {
-    const jwtSecret = process.env.JWT_SECRET;
-    const key = new TextEncoder().encode(jwtSecret); // Convert the secret key to Uint8Array
-
-    const decoded = await jwtVerify(token, key, { algorithms: ['HS256'] });
-    console.log('Decoded Token in middleware:', decoded);
-
+    await jose.jwtVerify(token, encodedJwtSecret);
     return NextResponse.next();
   } catch (error) {
-    console.error('Token verification failed:', error);
-    return NextResponse.redirect(new URL('/login', req.url)); // Adjust the domain accordingly
+    console.log({ error });
+    return NextResponse.redirect(new URL("/login", req.url));
   }
 }
 
 export const config = {
-  matcher: '/dashboard',
+  matcher: "/dashboard",
 };

@@ -18,7 +18,7 @@ export const getDashboardData = async (req, res) => {
     // Fetch dashboard-specific data for the user based on their ID
     const userDashboardData = await prisma.dashboardData.findUnique({
       where: {
-        userId: userId, // Assuming the dashboard data is associated with the user ID
+        id: userId, // Assuming the dashboard data is associated with the user ID
       },
       // Include any necessary dashboard data fields here
     });
