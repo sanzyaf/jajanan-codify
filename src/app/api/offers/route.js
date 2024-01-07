@@ -23,7 +23,8 @@ export async function GET(req) {
       },
     });
 
-    return NextResponse.json({ message: "Offers found", data: findOffers });
+    const allOffer = await prisma.service.findMany();
+    return NextResponse.json({data: allOffer, message: "Offers found", data: findOffers });
   } catch (error) {
     console.log(error);
     return NextResponse.json({ error: "Offers fetch error" });

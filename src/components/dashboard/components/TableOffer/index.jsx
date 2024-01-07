@@ -12,77 +12,32 @@ import { Eye, PencilLine, Trash2 } from "lucide-react";
 import Link from "next/link";
 
 const statusColorMap = {
-  active: "success",
+  isActive: "success",
   paused: "danger",
-  vacation: "warning",
 };
 
-const tableData = [
-  {
-    id: 1,
-    purposedPrice: "Rp. 10.000",
-    serviceId: 1,
-    userId: 1,
-    status: "active",
-  },
-  {
-    id: 2,
-    purposedPrice: "Rp. 10.000",
-    serviceId: 1,
-    userId: 1,
-    status: "active",
-  },
-  {
-    id: 3,
-    purposedPrice: "Rp. 10.000",
-    serviceId: 1,
-    userId: 1,
-    status: "active",
-  },
-  {
-    id: 4,
-    purposedPrice: "Rp. 10.000",
-    serviceId: 1,
-    userId: 1,
-    status: "active",
-  },
-  {
-    id: 5,
-    purposedPrice: "Rp. 10.000",
-    serviceId: 1,
-    userId: 1,
-    status: "active",
-  },
-  {
-    id: 6,
-    purposedPrice: "Rp. 10.000",
-    serviceId: 1,
-    userId: 1,
-    status: "active",
-  },
-];
 
-export default function TableOffer() {
+
+export default function TableOffer({ data }) {
+
+
   return (
     <Table aria-label="Example static collection table">
       <TableHeader>
-        <TableColumn>ID</TableColumn>
-        <TableColumn>PURPOSED PRICE</TableColumn>
+        <TableColumn>SERVICE ID</TableColumn>
+        <TableColumn>OFFER PRICE</TableColumn>
         <TableColumn>STATUS</TableColumn>
         <TableColumn>SERVICE ID</TableColumn>
-        <TableColumn>USER ID</TableColumn>
+        {/* <TableColumn>USER ID</TableColumn> */}
         <TableColumn>ACTION</TableColumn>
       </TableHeader>
       <TableBody>
-        {tableData.map((data) => (
+        {data.map((data) => (
           <TableRow key={data.id}>
-            <TableCell>{data.id}</TableCell>
-            <TableCell>{data.purposedPrice}</TableCell>
-            <TableCell color={statusColorMap[tableData.status]}>
-              {data.status}
-            </TableCell>
             <TableCell>{data.serviceId}</TableCell>
-            <TableCell>{data.userId}</TableCell>
+            <TableCell>{data.offerPrice}</TableCell>
+            <TableCell>{data.isActive ? "Active" : "Not Active"}</TableCell>
+            <TableCell>{data.authorId}</TableCell>
             <TableCell>
               <div className="space-x-3">
                 <button className="text-success">

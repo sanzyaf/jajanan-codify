@@ -14,6 +14,7 @@ module.exports = {
         "user-2": 'url("/images/bg-login-2.jpg")',
         "user-3": 'url("/images/bg-user-3.jpg")',
         "user-4": 'url("/images/bg-user-4.jpg")',
+        "home": 'url("/images/homebg.png")',
       }
     },
   },

@@ -17,10 +17,10 @@ export default async function Page() {
   console.log(services);
 
   return (
-    <main className="space-y-20">
+    <main className="">
       <NavbarUI />
-      <section className="max-w-5xl m-auto grid grid-cols-3 gap-12">
-        {services.map((service) => {
+      <section className="">
+        {/* {services.map((service) => {
           return (
             <Link href={`/services/${service.slug}`}>
               <div key={service.id}>
@@ -29,7 +29,8 @@ export default async function Page() {
               </div>
             </Link>
           );
-        })}
+        })} */}
+        <Home />
       </section>
     </main>
   );

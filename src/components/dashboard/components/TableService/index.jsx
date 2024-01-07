@@ -1,6 +1,13 @@
 "use client";
 import React from "react";
-import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell } from "@nextui-org/react";
+import {
+  Table,
+  TableHeader,
+  TableColumn,
+  TableBody,
+  TableRow,
+  TableCell,
+} from "@nextui-org/react";
 import { Eye, PencilLine, Trash2 } from "lucide-react";
 import Link from "next/link";
 
@@ -9,65 +16,6 @@ const statusColorMap = {
   paused: "danger",
   vacation: "warning",
 };
-
-const tableData = [
-  {
-    id: 1,
-    name: "Clean Shoes",
-    description: "Clean your shoes",
-    price: "Rp. 10.000",
-    status: "Active",
-  },
-  {
-    id: 2,
-    name: "Clean Shoes",
-    description: "Clean your shoes",
-    price: "Rp. 10.000",
-    status: "Active",
-  },
-  {
-    id: 3,
-    name: "Clean Shoes",
-    description: "Clean your shoes",
-    price: "Rp. 10.000",
-    status: "Active",
-  },
-  {
-    id: 4,
-    name: "Clean Shoes",
-    description: "Clean your shoes",
-    price: "Rp. 10.000",
-    status: "Active",
-  },
-  {
-    id: 5,
-    name: "Clean Shoes",
-    description: "Clean your shoes",
-    price: "Rp. 10.000",
-    status: "Active",
-  },
-  {
-    id: 6,
-    name: "Clean Shoes",
-    description: "Clean your shoes",
-    price: "Rp. 10.000",
-    status: "Active",
-  },
-  {
-    id: 7,
-    name: "Clean Shoes",
-    description: "Clean your shoes",
-    price: "Rp. 10.000",
-    status: "Active",
-  },
-  {
-    id: 8,
-    name: "Clean Shoes",
-    description: "Clean your shoes",
-    price: "Rp. 10.000",
-    status: "Active",
-  },
-];
 
 export default function TableService({ data }) {
   return (

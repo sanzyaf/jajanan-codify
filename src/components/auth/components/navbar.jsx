@@ -1,7 +1,14 @@
 import React from "react";
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button } from "@nextui-org/react";
+import {
+  Navbar,
+  NavbarBrand,
+  NavbarContent,
+  NavbarItem,
+  Link,
+  Button,
+} from "@nextui-org/react";
 
-export default function NavbarUI() {
+export default function NavbarUI({ isLoggedIn }) {
   return (
     <Navbar>
       <NavbarBrand>
@@ -9,18 +16,34 @@ export default function NavbarUI() {
           <img alt="" src="/jajanan.png" width={150} height={50} />
         </Link>
       </NavbarBrand>
-      <NavbarContent justify="end">
+      <NavbarContent justify="end" className="space-x-6">
         <NavbarItem className="lg:flex">
-          <Link href="/youtube.com">Services</Link>
+          <Link href="/" className="text-black">Home</Link>
         </NavbarItem>
         <NavbarItem className="lg:flex">
-          <Link href="/register">Register</Link>
+          <Link href="/" className="text-black">About</Link>
         </NavbarItem>
-        <NavbarItem>
-          <Button as={Link} color="primary" variant="ghost" href="/login">
-            Login
-          </Button>
+        <NavbarItem className="lg:flex">
+          <Link href="/youtube.com" className="text-black">Our Service</Link>
         </NavbarItem>
+        <NavbarItem className="lg:flex">
+          <Link href="/youtube.com" className="text-black">Offers</Link>
+        </NavbarItem>
+        {isLoggedIn ? ( // if user is not logged in, show register and login link
+          <NavbarItem className="lg:flex">
+            <Link href="/auth/login">Login</Link>
+            <Link href="/auth/register">
+              <Button auto>Register</Button>
+            </Link>
+          </NavbarItem>
+        ) : (
+          // if user is logged in, show dashboard link
+          <NavbarItem>
+            <Link href="/dashboard">
+              <Button className="rounded-lg p-2" color="primary" variant="ghost">Dashboard</Button>
+            </Link>
+          </NavbarItem>
+        )}
       </NavbarContent>
     </Navbar>
   );

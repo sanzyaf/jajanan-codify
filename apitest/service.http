@@ -5,9 +5,22 @@ GET http://localhost:3000/api/services
 POST http://localhost:3000/api/services
 
 {
-    "title": "Service 1",
+    "title": "main bola",
     "description": "Service 1 description",
     "location": "Jakarta",
     "price": 1000000,
+    "isActive": true
+}
+
+### get offer
+GET http://localhost:3000/api/offers
+
+### post offer
+POST http://localhost:3000/api/offers
+
+{   
+    "authorId": "0dd1768f-4cd0-415a-9e29-103aeba2d97c",
+    "serviceId": "fb0384bf-04a9-4559-9d87-d0cd4c3d82e0",
+    "offerPrice": 1000000,
     "isActive": true
 }
