@@ -17,11 +17,11 @@ export default function NavbarUI({ isLoggedIn }) {
         </Link>
       </NavbarBrand>
       <NavbarContent justify="end" className="space-x-6">
-        {/* <NavbarItem className="lg:flex">
+        <NavbarItem className="lg:flex">
           <Link href="/" className="text-black">
             Home
           </Link>
-        </NavbarItem> */}
+        </NavbarItem>
         <NavbarItem className="lg:flex">
           <Link href="/" className="text-black">
             About
