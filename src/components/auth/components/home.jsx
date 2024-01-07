@@ -1,6 +1,5 @@
 "use client";
 
-
 export const Home = () => {
   return (
     <main>
@@ -8,8 +7,8 @@ export const Home = () => {
         <div className="flex items-center justify-center min-h-screen bg-cover bg-center overflow-hidden">
           <div className="mx-auto w-full mt-10 md:max-w-md sm:w-full md:h-auto items-center bg-white rounded-lg p-4 text-gray-800 mb-10">
             <div className="text-center py-5">
-              <h1 className="text-7xl font-bold">Home</h1>
-              <p className="pt-3">Home</p>
+              <h1 className="text-7xl font-bold">We Help You Better</h1>
+              <p className="pt-3">---#---</p>
             </div>
           </div>
         </div>

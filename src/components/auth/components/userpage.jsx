@@ -15,7 +15,7 @@ export default function NavbarUser() {
       <NavbarBrand>
         <img alt="" src="/jajanan.png" width={150} height={50} />
       </NavbarBrand>
-      <NavbarContent justify="end">
+      <NavbarContent justify="end" className="space-x-6">
         <User
           name="Jane Doe"
           description="Product Designer"
@@ -24,11 +24,13 @@ export default function NavbarUser() {
           }}
         />
         <NavbarItem className="lg:flex">
-          <Link href="/dashboard">Services</Link>
+          <Link className="text-black" href="/dashboard">
+            Our Service
+          </Link>
         </NavbarItem>
         <NavbarItem>
           <Button as={Link} color="primary" variant="ghost" href="">
-            Create Services
+            Offers
           </Button>
         </NavbarItem>
       </NavbarContent>

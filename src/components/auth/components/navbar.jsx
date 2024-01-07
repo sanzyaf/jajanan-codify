@@ -17,17 +17,25 @@ export default function NavbarUI({ isLoggedIn }) {
         </Link>
       </NavbarBrand>
       <NavbarContent justify="end" className="space-x-6">
+        {/* <NavbarItem className="lg:flex">
+          <Link href="/" className="text-black">
+            Home
+          </Link>
+        </NavbarItem> */}
         <NavbarItem className="lg:flex">
-          <Link href="/" className="text-black">Home</Link>
+          <Link href="/" className="text-black">
+            About
+          </Link>
         </NavbarItem>
         <NavbarItem className="lg:flex">
-          <Link href="/" className="text-black">About</Link>
+          <Link href="/" className="text-black">
+            Our Service
+          </Link>
         </NavbarItem>
         <NavbarItem className="lg:flex">
-          <Link href="/youtube.com" className="text-black">Our Service</Link>
-        </NavbarItem>
-        <NavbarItem className="lg:flex">
-          <Link href="/youtube.com" className="text-black">Offers</Link>
+          <Link href="/" className="text-black">
+            Offers
+          </Link>
         </NavbarItem>
         {isLoggedIn ? ( // if user is not logged in, show register and login link
           <NavbarItem className="lg:flex">
@@ -40,7 +48,13 @@ export default function NavbarUI({ isLoggedIn }) {
           // if user is logged in, show dashboard link
           <NavbarItem>
             <Link href="/dashboard">
-              <Button className="rounded-lg p-2" color="primary" variant="ghost">Dashboard</Button>
+              <Button
+                className="rounded-lg p-2"
+                color="primary"
+                variant="ghost"
+              >
+                Login/Register
+              </Button>
             </Link>
           </NavbarItem>
         )}
