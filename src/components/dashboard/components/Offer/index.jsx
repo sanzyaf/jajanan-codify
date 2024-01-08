@@ -3,7 +3,7 @@ import React from "react";
 import { Button, Input } from "@nextui-org/react";
 import Link from "next/link";
 
-export default function CreateOffer() {
+export default function CreateOffer({ data }) {
   return (
     <main>
       <section className="flex justify-between items-end mb-7">
@@ -23,7 +23,7 @@ export default function CreateOffer() {
         </div>
         <div className="mt-7">
           <Button shadow color="primary">
-            <Link href="/dashboard/products">Save Data</Link>
+            <Link href="/dashboard">Save Data</Link>
           </Button>
         </div>
       </section>

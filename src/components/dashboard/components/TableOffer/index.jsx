@@ -11,10 +11,12 @@ import {
 import { Eye, PencilLine, Trash2 } from "lucide-react";
 import Link from "next/link";
 
+
 const statusColorMap = {
   isActive: "success",
   paused: "danger",
 };
+
 
 
 

@@ -37,7 +37,7 @@ export default async function Page() {
           </Button>
         </div>
       </section>
-      <TableService data={services} />
+      <TableService data={services} userId={userData.id} />
     </div>
   );
 }

@@ -27,4 +27,5 @@ export default async function Page() {
   const offers = await getOffers(userData.id);
 
   return <Dashboard serviceTotal={services.data.length} offerTotal={offers.data.length} />;
+
 }

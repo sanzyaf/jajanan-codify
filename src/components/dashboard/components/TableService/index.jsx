@@ -17,7 +17,9 @@ const statusColorMap = {
   vacation: "warning",
 };
 
-export default function TableService({ data }) {
+
+export default function TableService({ data, userId }) {
+  console.log(userId);
   return (
     <Table aria-label="Example static collection table">
       <TableHeader>
@@ -36,14 +38,18 @@ export default function TableService({ data }) {
             <TableCell>{data.isActive ? "Active" : "Not Active"}</TableCell>
             <TableCell>
               <div className="space-x-3">
-                <button className="text-success">
-                  <Eye size={20} />
-                </button>
-                <button className="text-primary">
-                  <Link href="/dashboard/services/update">
-                    <PencilLine size={20} />
-                  </Link>
-                </button>
+              <Link href={`/services/${data.slug}`}> 
+                  <button className="text-success">
+                    <Eye size={20} />
+                  </button>
+                </Link>
+                {userId && userId === data.authorId &&  (
+                  <button className="text-primary">
+                    <Link href="/dashboard/services/update">
+                      <PencilLine size={20} />
+                    </Link>
+                  </button>
+                )}
                 <button className="text-danger">
                   <Trash2 size={20} />
                 </button>
