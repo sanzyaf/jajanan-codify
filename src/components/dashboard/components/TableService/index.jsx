@@ -50,9 +50,11 @@ export default function TableService({ data, userId }) {
                     </Link>
                   </button>
                 )}
+                {userId && userId === data.authorId &&  (
                 <button className="text-danger">
                   <Trash2 size={20} />
                 </button>
+                )}
               </div>
             </TableCell>
           </TableRow>
