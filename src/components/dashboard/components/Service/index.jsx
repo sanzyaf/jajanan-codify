@@ -45,19 +45,19 @@ export default function CreateService({ userId }) {
         <section className="space-y-5">
           <div className="space-y-2">
             <label>Service Name</label>
-            <Input placeholder="Clean shoes" name="title" />
+            <Input placeholder="Clean shoes" name="title" className="text-gray-400" className="text-gray-400"/>
           </div>
           <div className="space-y-2">
             <label>Description</label>
-            <Textarea placeholder="Description" name="description" />
+            <Textarea placeholder="Description" name="description" className="text-gray-400" className="text-gray-400"/>
           </div>
           <div className="space-y-2">
             <label>Location</label>
-            <Input placeholder="Jakarta" name="location" />
+            <Input placeholder="Jakarta" name="location" className="text-gray-400"/>
           </div>
           <div className="space-y-2">
             <label>Price</label>
-            <Input placeholder="price" name="price" type="number" />
+            <Input placeholder="price" name="price" type="number" className="text-gray-400" className="text-gray-400"/>
           </div>
           <Button isDisabled={loading} type="submit" shadow color="primary">
             Create Service
